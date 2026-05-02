@@ -1,0 +1,241 @@
+.dashboard-container {
+  display: flex;
+  font-family: 'Segoe UI', sans-serif;
+  color: #222;
+  min-height: 100vh;
+}
+
+.dashboard-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.dashboard-main {
+  flex: 1;
+  overflow: auto;
+}
+
+/* Filter Row */
+.dashboard-filter-row {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 35px;
+}
+
+/* Animated Value */
+.animated-value {
+  display: inline-block;
+  transition: opacity 0.18s ease, transform 0.18s ease;
+}
+.animated-value-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+.animated-value-hidden {
+  opacity: 0;
+  transform: translateY(5px);
+}
+
+/* Stat Cards */
+.dashboard-stats-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 35px;
+  margin-bottom: 35px;
+}
+
+.dashboard-stat-card {
+  background: #fff;
+  border-radius: 12px;
+  padding: 18px 20px;
+  border: .5px solid #d0d0d0;
+}
+
+.dashboard-stat-card-orders {
+  background: #fff;
+  border-radius: 12px;
+  padding: 18px 20px;
+  border: 1.5px solid #2ec4b6;
+}
+
+.dashboard-stat-card-stock {
+  background: #fff;
+  border-radius: 12px;
+  padding: 18px 20px;
+  border: 1.5px solid #f5a623;
+}
+
+.dashboard-stat-card-products {
+  background: #fff;
+  border-radius: 12px;
+  padding: 18px 20px;
+  border: 1.5px solid #9b59b6;
+}
+
+.dashboard-stat-label {
+  font-size: 14px;
+  font-weight: 500;
+  color: #989595;
+  margin-bottom: 8px;
+}
+
+.dashboard-stat-value {
+  font-size: 22px;
+  font-weight: 700;
+  color: #4b2a2a;
+}
+
+.dashboard-stat-value-orders {
+  font-size: 22px;
+  font-weight: 700;
+  color: #2ec4b6;
+}
+
+.dashboard-stat-value-stock {
+  font-size: 22px;
+  font-weight: 700;
+  color: #f5a623;
+}
+
+.dashboard-stat-value-products {
+  font-size: 22px;
+  font-weight: 700;
+  color: #9b59b6;
+}
+
+/* Charts Row */
+.dashboard-charts-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 30px;
+  margin-bottom: 35px;
+}
+
+.dashboard-chart-card {
+  background: #fff;
+  border-radius: 12px;
+  padding: 18px 20px;
+  border: 1px solid #DADADA;
+  box-shadow: 0px 4px 4px 0px #C5C5C540;
+
+}
+
+.dashboard-chart-title {
+  margin: 0 0 16px;
+  font-size: 15px;
+  font-weight: 600;
+}
+
+/* Bottom Row */
+.dashboard-bottom-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 30px;
+}
+
+.dashboard-orders-card {
+  background: #fff;
+  border-radius: 12px;
+  padding: 20px;
+  border: 1px solid #EDEDED;
+  box-shadow: 0px 4px 4px 0px #D8D8D840;
+}
+
+.dashboard-orders-title {
+  margin: 0 0 16px;
+  font-size: 15px;
+  font-weight: 600;
+}
+
+.dashboard-orders-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.dashboard-order-item {
+  background: #f0eeee;
+  border-radius: 8px;
+  padding: 10px 14px;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.dashboard-order-id {
+  font-weight: 600;
+  font-size: 14px;
+}
+
+.dashboard-order-product {
+  font-size: 12px;
+  color: #6E6E6E;
+  margin-top: 2px;
+  white-space: pre-line;
+}
+
+.dashboard-order-amount {
+  font-weight: 600;
+  font-size: 13px;
+  text-align: right;
+}
+
+.dashboard-order-time {
+  font-size: 12px;
+  color: #6E6E6E;
+  margin-top: 2px;
+  text-align: right;
+}
+
+.dashboard-alerts-card {
+  background: #fff;
+  border-radius: 12px;
+  padding: 20px;
+  border: 1px solid #EDEDED;
+  box-shadow: 0px 4px 4px 0px #D8D8D840;
+}
+
+.dashboard-alerts-title {
+  margin: 0 0 16px;
+  font-size: 15px;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.dashboard-alerts-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.dashboard-alert-item {
+  background: #FFF6E7;
+  border-radius: 8px;
+  padding: 10px 14px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border: 1px solid #FFC579;
+}
+
+.dashboard-alert-name {
+  font-weight: 600;
+  font-size: 14px;
+  color: #000000;
+}
+
+.dashboard-alert-sku {
+  font-size: 12px;
+  color: #6E6E6E;
+  margin-top: 2px;
+}
+
+.dashboard-alert-left {
+  color: #F54900;
+  font-weight: 600;
+  font-size: 13px;
+}

@@ -1,0 +1,212 @@
+.approvals-page {
+  min-height: 100vh;
+  box-sizing: border-box;
+  font-family: 'Segoe UI', -apple-system, sans-serif;
+}
+
+.approvals-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 14px;
+}
+
+.approvals-title {
+  font-size: 20px;
+  font-weight: 700;
+  color: #111827;
+}
+
+.approvals-count-badge {
+  background: #FFEFD4;
+  color: #F54900;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 700;
+  padding: 4px 9px;
+  margin-left: 10px;
+}
+
+.approvals-empty-state {
+  text-align: center;
+  padding: 40px;
+  background: #fff;
+  border-radius: 12px;
+  border: 1px dashed #fca5a5;
+  color: #9ca3af;
+  font-size: 14px;
+}
+
+.approvals-empty-svg {
+  margin-bottom: 10px;
+}
+
+.approvals-activity-card {
+  background: #fff;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  box-shadow: 0px 4px 4px 0px #D8D8D840;
+  padding: 18px 22px;
+}
+
+.approvals-activity-title {
+  font-size: 15px;
+  font-weight: 700;
+  color: #111827;
+  margin-bottom: 4px;
+}
+
+.approvals-activity-divider {
+  border-top: 1px solid #f3f4f6;
+  margin-top: 10px;
+}
+
+/* Discount Card */
+.approvals-discount-card {
+  background: #fff;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  box-shadow: 0px 4px 4px 0px #B4B4B440;
+  padding: 20px 24px 22px;
+}
+
+.approvals-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 14px;
+}
+
+.approvals-card-type {
+  font-size: 14.5px;
+  font-weight: 700;
+  color: #111827;
+}
+
+.approvals-card-price-section {
+  text-align: right;
+  flex-shrink: 0;
+  margin-left: 24px;
+}
+
+.approvals-old-price {
+  font-size: 12.5px;
+  color: #9ca3af;
+  text-decoration: line-through;
+  margin-bottom: 2px;
+}
+
+.approvals-new-price {
+  font-size: 14px;
+  font-weight: 700;
+  color: #e8375a;
+  margin-bottom: 4px;
+}
+
+.approvals-fields-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 8px;
+  margin-bottom: 28px;
+}
+
+.approvals-fields-grid-2cols {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 9px 32px;
+  margin-bottom: 28px;
+}
+
+.approvals-field {
+  font-size: 13.5px;
+  color: #1f2937;
+  line-height: 1.5;
+}
+
+.approvals-field-label {
+  font-weight: 700;
+}
+
+.approvals-field-value {
+  font-weight: 400;
+}
+
+.approvals-actions {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+}
+
+/* Purchase Card */
+.approvals-purchase-card {
+  background: #fff;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  box-shadow: 0px 4px 4px 0px #B4B4B440;
+  padding: 20px 24px 22px;
+}
+
+/* Status Badge */
+.approvals-status-badge {
+  display: inline-block;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 600;
+  padding: 5px 16px;
+  white-space: nowrap;
+}
+
+.approvals-status-approved {
+  background: #dcfce7;
+  color: #16a34a;
+}
+
+.approvals-status-rejected {
+  background: #fee2e2;
+  color: #ef4444;
+}
+
+.approvals-status-discount {
+  background: #fce8ed;
+  color: #e8375a;
+}
+
+/* Activity Row */
+.approvals-activity-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 13px 0;
+  border-bottom: 1px solid #f3f4f6;
+}
+
+.approvals-activity-row-last {
+  border-bottom: none;
+}
+
+.approvals-activity-type {
+  font-size: 13.5px;
+  font-weight: 500;
+  color: #374151;
+}
+
+.approvals-activity-product {
+  font-size: 12px;
+  color: #6b7280;
+  margin-top: 2px;
+}
+
+.approvals-activity-by {
+  font-size: 12px;
+  color: #9ca3af;
+  margin-top: 1px;
+}
+
+.approvals-activity-right {
+  text-align: right;
+}
+
+.approvals-activity-date {
+  font-size: 11px;
+  color: #9ca3af;
+  margin-top: 5px;
+}

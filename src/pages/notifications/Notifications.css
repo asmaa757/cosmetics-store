@@ -1,0 +1,147 @@
+.notifications-container {
+  min-height: 100vh;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding-top: 30px;
+  font-family: 'Inter', 'Segoe UI', sans-serif;
+}
+
+.notifications-wrapper {
+  width: 100%;
+  max-width: 680px;
+}
+
+.notifications-card {
+  background-color: #fff;
+  border-radius: 16px;
+  border: 1px solid #F3E6EC;
+  box-shadow: 0 1px 6px rgba(0, 0, 0, 0.06);
+  overflow: hidden;
+}
+
+.notifications-header {
+  padding: 20px 24px 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  border-bottom: 1px solid #F3F4F6;
+}
+
+.notifications-title {
+  margin: 0;
+  font-weight: 600;
+  font-size: 16px;
+  color: #111827;
+}
+
+.notifications-count {
+  margin: 2px 0 0;
+  font-size: 13px;
+  color: #9CA3AF;
+}
+
+.notifications-mark-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 14px;
+  color: #C0356A;
+  font-weight: 500;
+  padding: 0;
+}
+
+.notifications-empty {
+  padding: 48px 24px;
+  text-align: center;
+  color: #9CA3AF;
+  font-size: 14px;
+}
+
+.notifications-empty-svg {
+  margin-bottom: 10px;
+}
+
+.notifications-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  padding: 18px 24px;
+  transition: background 0.15s;
+  cursor: pointer;
+}
+
+.notifications-item-border {
+  border-bottom: 1px solid #F3F4F6;
+}
+
+.notifications-item:hover {
+  background: #FAFAFA;
+}
+
+.notifications-icon-wrapper {
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.notifications-content {
+  flex: 1;
+  min-width: 0;
+}
+
+.notifications-item-title {
+  margin: 0;
+  font-weight: 600;
+  font-size: 14px;
+  color: #111827;
+}
+
+.notifications-item-desc {
+  margin: 3px 0 6px;
+  font-size: 13px;
+  color: #6B7280;
+}
+
+.notifications-item-time {
+  margin: 0;
+  font-size: 12px;
+  color: #9CA3AF;
+}
+
+.notifications-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  flex-shrink: 0;
+  margin-top: 6px;
+}
+
+.notifications-footer {
+  padding: 16px 24px;
+  text-align: center;
+  border-top: 1px solid #F3F4F6;
+}
+
+.notifications-see-all-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 15px;
+  font-weight: 500;
+  color: #4369CA;
+}
+
+.notifications-see-less-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 500;
+  color: #C0356A;
+  padding: 0;
+}
