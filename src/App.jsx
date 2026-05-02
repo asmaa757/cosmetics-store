@@ -8,7 +8,7 @@ import Layout from './components/Layout';
 import ProductsPage from './pages/products/Products';
 import POSPage from './pages/pos/POS';
 import InventoryPage from './pages/inventory/Inventory';
-import UsersPage from './pages/users/users';
+import UsersPage from './pages/users/Users';
 import ReportsPage from './pages/reports/Reports';
 import ApprovalsPage from './pages/approvals/Approvals';
 import SettingsPage from './pages/settings/Settings';
