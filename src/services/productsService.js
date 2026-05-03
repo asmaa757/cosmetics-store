@@ -7,7 +7,7 @@ let MOCK_PRODUCTS = [
     price: "500EGP",
     stock: 45,
     category: "Makeup",
-    img: "public/photo_2026-04-28_01-39-11.jpg",
+    img: "/photo_2026-04-28_01-39-11.jpg",
   },
   {
     id: 2,
@@ -17,7 +17,7 @@ let MOCK_PRODUCTS = [
     price: "250EGP",
     stock: 20,
     category: "Makeup",
-    img: "public/photo_2026-04-28_01-45-46.jpg",
+    img: "/photo_2026-04-28_01-45-46.jpg",
   },
   {
     id: 3,
@@ -27,7 +27,7 @@ let MOCK_PRODUCTS = [
     price: "450EGP",
     stock: 15,
     category: "Makeup",
-    img: "public/photo_2026-04-28_01-41-06.jpg",
+    img: "/photo_2026-04-28_01-41-06.jpg",
   },
   {
     id: 4,
@@ -37,7 +37,7 @@ let MOCK_PRODUCTS = [
     price: "70EGP",
     stock: 25,
     category: "Makeup",
-    img: "public/photo_2026-04-28_01-47-43.jpg",
+    img: "/photo_2026-04-28_01-47-43.jpg",
   },
   {
     id: 5,
@@ -47,7 +47,7 @@ let MOCK_PRODUCTS = [
     price: "300EGP",
     stock: 40,
     category: "Skincare",
-    img: "public/photo_2026-04-28_01-43-35.jpg",
+    img: "/photo_2026-04-28_01-43-35.jpg",
   },
   {
     id: 6,
@@ -57,7 +57,7 @@ let MOCK_PRODUCTS = [
     price: "450EGP",
     stock: 15,
     category: "Makeup",
-    img: "public/photo_2026-04-28_01-49-30.jpg",
+    img: "/photo_2026-04-28_01-49-30.jpg",
   },
   {
     id: 7,
@@ -67,7 +67,7 @@ let MOCK_PRODUCTS = [
     price: "389EGP",
     stock: 30,
     category: "Makeup",
-    img: "public/photo_2026-04-28_01-42-00.jpg",
+    img: "/photo_2026-04-28_01-42-00.jpg",
   },
   {
     id: 8,
@@ -77,7 +77,7 @@ let MOCK_PRODUCTS = [
     price: "470EGP",
     stock: 19,
     category: "Makeup",
-    img: "public/photo_2026-04-28_01-51-44.jpg",
+    img: "/photo_2026-04-28_01-51-44.jpg",
   },
     {
     id: 9,
@@ -87,7 +87,7 @@ let MOCK_PRODUCTS = [
     price: "470EGP",
     stock: 19,
     category: "Makeup",
-    img: "public/photo_2026-04-28_01-47-43.jpg",
+    img: "/photo_2026-04-28_01-47-43.jpg",
   },
     {
     id: 10,
@@ -97,7 +97,7 @@ let MOCK_PRODUCTS = [
     price: "470EGP",
     stock: 19,
     category: "Makeup",
-    img: "public/photo_2026-04-28_01-51-44.jpg",
+    img: "/photo_2026-04-28_01-51-44.jpg",
   },
 ];
 
