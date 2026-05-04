@@ -1,7 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useAuth } from '../context/AuthContext';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { notificationsService } from "../services/notificationsService";
 import { useNotifications } from '../context/NotificationsContext';
 
 const style = document.createElement('style');
@@ -31,9 +30,6 @@ style.textContent = `
     --sidebar-w: 260px;
   }
 
-
-
-  /* MAIN */
   .main {
     margin-left: var(--sidebar-w);
     flex: 1;
@@ -42,7 +38,6 @@ style.textContent = `
     min-height: 100vh;
   }
 
-  /* TOPBAR */
   .topbar {
     display: flex;
     align-items: center;
@@ -157,7 +152,6 @@ style.textContent = `
     color: #4C4949;
   }
 
-  /* Content placeholder */
   .content {
     padding: 32px 36px 48px;
     flex: 1;
@@ -171,19 +165,79 @@ style.textContent = `
     text-align: center;
     color: var(--muted);
     font-size: 18px;
-  }`
-;
+  }
+
+  .user-dropdown {
+    position: absolute;
+    top: calc(100% + 12px);
+    right: 0;
+    background: #fff;
+    border: 1px solid #ede8f0;
+    border-radius: 12px;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.10);
+    min-width: 200px;
+    z-index: 100;
+    overflow: hidden;
+  }
+
+  .user-dropdown-header {
+    padding: 14px 16px;
+    border-bottom: 1px solid #f3f4f6;
+    background: #fff9fb;
+  }
+
+  .user-dropdown-name {
+    font-weight: 600;
+    font-size: 14px;
+    color: #262626;
+  }
+
+  .user-dropdown-role {
+    font-size: 12px;
+    color: #9a8fa0;
+    margin-top: 2px;
+  }.user-dropdown-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 16px;
+    font-size: 14px;
+    color: #4C4949;
+    cursor: pointer;
+    border: none;
+    background: none;
+    width: 100%;
+    text-align: left;
+    transition: background 0.15s;
+  }
+
+  .user-dropdown-item:hover {
+    background: #fff1f4;
+    color: #FF2056;
+  }
+
+  .user-dropdown-item.logout {
+    color: #ef4444;
+    border-top: 1px solid #f3f4f6;
+  }
+
+  .user-dropdown-item.logout:hover {
+    background: #fff1f1;
+    color: #dc2626;
+  }
+`;
 document.head.appendChild(style);
 
 function Topbar() {
-  const { user, loading } = useAuth();
+  const { user, loading, logout } = useAuth();
   const location = useLocation();
   const navigate = useNavigate();
   const [currentTime, setCurrentTime] = useState('');
   const [currentDate, setCurrentDate] = useState('');
   const { hasUnread, setHasUnread } = useNotifications();
+  const [showDropdown, setShowDropdown] = useState(false);
+  const dropdownRef = useRef(null);
 
-  
   useEffect(() => {
     function updateClock() {
       const now = new Date();
@@ -196,41 +250,39 @@ function Topbar() {
       const month = String(now.getMonth() + 1).padStart(2, '0');
       const day = String(now.getDate()).padStart(2, '0');
       const dateStr = `${year}-${month}-${day}`;
-      
       setCurrentTime(timeStr);
       setCurrentDate(dateStr);
     }
-    
     updateClock();
     const interval = setInterval(updateClock, 1000);
     return () => clearInterval(interval);
   }, []);
 
+  // Close dropdown when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (e) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(e.target)) {
+        setShowDropdown(false);
+      }
+    };
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, []);
+
   const getPageTitle = () => {
     const path = location.pathname;
-    
     switch(path) {
       case '/':
-      case '/dashboard':
-        return 'Dashboard';
-      case '/products':
-        return 'Products';
-      case '/pos':
-        return 'Point of Sale';
-      case '/inventory':
-        return 'Inventory';
-      case '/users':
-        return 'Users';
-      case '/reports':
-        return 'Reports';
-      case '/approvals':
-        return 'Approvals';
-      case '/settings':
-        return 'Settings';
-      case '/notifications':
-        return 'Notifications';
-      default:
-        return 'Dashboard';
+      case '/dashboard': return 'Dashboard';
+      case '/products':  return 'Products';
+      case '/pos':       return 'Point of Sale';
+      case '/inventory': return 'Inventory';
+      case '/users':     return 'Users';
+      case '/reports':   return 'Reports';
+      case '/approvals': return 'Approvals';
+      case '/settings':  return 'Settings';
+      case '/notifications': return 'Notifications';
+      default: return 'Dashboard';
     }
   };
 
@@ -250,28 +302,19 @@ function Topbar() {
 
   const getRoleLabel = (role) => {
     switch(role) {
-      case 'admin': return 'Admin';
-      case 'manager': return 'Manager';
+      case 'admin':    return 'Admin';
+      case 'manager':  return 'Manager';
       case 'employee': return 'Employee';
-      case 'cashier': return 'Cashier';
+      case 'cashier':  return 'Cashier';
       default: return role;
     }
   };
 
   const getInitials = (name) => {
     if (!name) return 'U';
-    
     const parts = name.trim().split(' ');
-    
-    if (parts.length === 1) {
-
-      return parts[0].charAt(0).toUpperCase();
-    }
-    
-    const firstInitial = parts[0].charAt(0).toUpperCase();
-    const lastInitial = parts[parts.length - 1].charAt(0).toUpperCase();
-    
-    return firstInitial + lastInitial;
+    if (parts.length === 1) return parts[0].charAt(0).toUpperCase();
+    return parts[0].charAt(0).toUpperCase() + parts[parts.length - 1].charAt(0).toUpperCase();
   };
 
   const handleNotificationsClick = () => {
@@ -279,6 +322,10 @@ function Topbar() {
     navigate('/notifications');
   };
 
+  const handleLogout = () => {
+    logout();
+    navigate('/login');
+  };
 
   return (
     <header className="topbar">
@@ -287,9 +334,7 @@ function Topbar() {
         <div className="topbar-datetime">
           <div className="topbar-time">{currentTime}</div>
           <div className="topbar-date">{currentDate}</div>
-        </div>
-
-        <button className="notif-btn" onClick={handleNotificationsClick}>
+        </div><button className="notif-btn" onClick={handleNotificationsClick}>
           <svg width="22" height="22" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
             <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/>
             <path d="M13.73 21a2 2 0 0 1-3.46 0"/>
@@ -297,15 +342,35 @@ function Topbar() {
           {hasUnread && <span className="badge"></span>}
         </button>
 
-        <div className="user-chip">
+        <div className="user-chip" ref={dropdownRef} onClick={() => setShowDropdown(!showDropdown)}>
           <div className="avatar-circle">{getInitials(user.name)}</div>
           <div className="user-info">
             <div className="user-name">{user.name}</div>
             <div className="user-role">{getRoleLabel(user.role)}</div>
           </div>
-          <svg width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+          <svg
+            width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"
+            style={{ transform: showDropdown ? 'rotate(180deg)' : 'rotate(0deg)', transition: 'transform 0.2s' }}
+          >
             <polyline points="6 9 12 15 18 9"/>
           </svg>
+
+          {showDropdown && (
+            <div className="user-dropdown">
+              <div className="user-dropdown-header">
+                <div className="user-dropdown-name">{user.name}</div>
+                <div className="user-dropdown-role">{getRoleLabel(user.role)}</div>
+              </div>
+              <button className="user-dropdown-item logout" onClick={handleLogout}>
+                <svg width="15" height="15" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+                  <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/>
+                  <polyline points="16 17 21 12 16 7"/>
+                  <line x1="21" y1="12" x2="9" y2="12"/>
+                </svg>
+                Logout
+              </button>
+            </div>
+          )}
         </div>
       </div>
     </header>

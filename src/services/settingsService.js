@@ -1,4 +1,8 @@
-let MOCK_SETTINGS = {
+import { storage } from "./storageHelper";
+
+const SETTINGS_KEY = "riza_settings";
+
+const DEFAULT_SETTINGS = {
   storeName: "Riza Store",
   storeId: "RS-2026-001",
   address: "Tanta, Saeed Street",
@@ -12,13 +16,19 @@ let MOCK_SETTINGS = {
   currency: "EGP",
 };
 
+if (!localStorage.getItem(SETTINGS_KEY)) {
+  storage.set(SETTINGS_KEY, DEFAULT_SETTINGS);
+}
+
 export const settingsService = {
   getSettings: async () => {
-    return { ...MOCK_SETTINGS };
+    return storage.get(SETTINGS_KEY, DEFAULT_SETTINGS);
   },
 
   updateSettings: async (updatedSettings) => {
-    MOCK_SETTINGS = { ...MOCK_SETTINGS, ...updatedSettings };
-    return { success: true, data: { ...MOCK_SETTINGS } };
+    const current = storage.get(SETTINGS_KEY, DEFAULT_SETTINGS);
+    const merged = { ...current, ...updatedSettings };
+    storage.set(SETTINGS_KEY, merged);
+    return { success: true, data: merged };
   },
 };

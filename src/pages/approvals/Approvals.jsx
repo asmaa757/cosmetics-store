@@ -83,24 +83,25 @@ function StatusBadge({ label, type }) {
   return <span className={statusClass}>{label}</span>;
 }
 
-function DiscountCard({ onApprove, onEdit, onReject }) {
+function DiscountCard({ req, onApprove, onEdit, onReject }) {
   return (
     <div className="approvals-discount-card">
       <div className="approvals-card-header">
         <div className="approvals-card-type">Request Type : Discount Request</div>
         <div className="approvals-card-price-section">
-          <div className="approvals-old-price">240EGP</div>
-          <div className="approvals-new-price">204EGP</div>
-          <StatusBadge label="-15% OFF" type="discount" />
+          <div className="approvals-old-price">{req.originalPrice}</div>
+          <div className="approvals-new-price">{req.finalPrice}</div>
+          <StatusBadge label={`-${req.discountPercent}% OFF`} type="discount" />
         </div>
       </div>
       <div className="approvals-fields-grid">
-        <Field label="Product Name" value="Matte Lipstick - Shade Rose 03" />
-        <Field label="Requested By" value="Youssef Khaled (cashier)" />
-        <Field label="Original Price" value="240EGP" />
-        <Field label="Requested Discount" value="15%" />
-        <Field label="Final Price After Discount" value="204EGP" />
-        <Field label="Reason" value="Customer asked for discount / loyal customer" /><Field label="Date & Time" value="28 Apr 2026 - 02:15 PM" />
+        <Field label="Product Name" value={req.productName} />
+        <Field label="Requested By" value={req.requestedBy} />
+        <Field label="Original Price" value={req.originalPrice} />
+        <Field label="Requested Discount" value={`${req.discountPercent}%`} />
+        <Field label="Final Price After Discount" value={req.finalPrice} />
+        <Field label="Reason" value={req.reason} />
+        <Field label="Date & Time" value={req.dateTime} />
       </div>
       <div className="approvals-actions">
         <ActionBtn label="Approve" variant="approve" onClick={onApprove} />
@@ -111,19 +112,18 @@ function DiscountCard({ onApprove, onEdit, onReject }) {
   );
 }
 
-function PurchaseCard({ onApprove, onEdit, onReject }) {
+function PurchaseCard({ req, onApprove, onEdit, onReject }) {
   return (
     <div className="approvals-purchase-card">
       <div className="approvals-card-type" style={{ marginBottom: 14 }}>Request Type : Purchase Request</div>
       <div className="approvals-fields-grid-2cols">
-        <Field label="Product Name" value="Foundation Fit Me - Shade 220" />
-        <Field label="Suggested Reorder Quantity" value="20 units" />
-        <Field label="Requested By" value="Ahmed Soliman (Employee)" />
-        <Field label="Last Order Date" value="10 Apr 2026" />
-        <Field label="Current Stock" value="3 items left" />
-        <Field label="Reason" value="Out of Stock Soon" />
-        <div />
-        <Field label="Date & Time" value="28 Apr 2026 - 07:15 PM" />
+        <Field label="Product Name" value={req.productName} />
+        <Field label="Suggested Reorder Quantity" value={req.suggestedQuantity} />
+        <Field label="Requested By" value={req.requestedBy} />
+        <Field label="Last Order Date" value={req.lastOrderDate} />
+        <Field label="Current Stock" value={req.currentStock} />
+        <Field label="Reason" value={req.reason} />
+        <Field label="Date & Time" value={req.dateTime} />
       </div>
       <div className="approvals-actions">
         <ActionBtn label="Approve" variant="approve" onClick={onApprove} />
@@ -213,6 +213,7 @@ export default function ApprovalsPage() {
             return (
               <DiscountCard
                 key={req.id}
+                req={req}
                 onApprove={() => handleApprove(req.id, "discount")}
                 onEdit={() => handleEdit("discount")}
                 onReject={() => handleReject(req.id, "discount")}
@@ -222,6 +223,7 @@ export default function ApprovalsPage() {
             return (
               <PurchaseCard
                 key={req.id}
+                req={req}
                 onApprove={() => handleApprove(req.id, "purchase")}
                 onEdit={() => handleEdit("purchase")}
                 onReject={() => handleReject(req.id, "purchase")}

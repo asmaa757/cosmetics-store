@@ -12,10 +12,10 @@ function getInitials(name) {
 
 function Badge({ role }) {
   const badgeClass = {
-    Admin: "users-badge-admin",
-    Employee: "users-badge-employee",
-    Manager: "users-badge-manager",
-    Cashier: "users-badge-cashier",
+      admin: "users-badge-admin",
+      employee: "users-badge-employee",
+      manager: "users-badge-manager",
+      cashier: "users-badge-cashier",
   };
   return <span className={`users-badge ${badgeClass[role]}`}>{role}</span>;
 }
@@ -32,11 +32,10 @@ function StatusBadge({ status }) {
 // EDIT MODAL
 // =============================================
 function EditModal({ user, onSave, onClose }) {
-  const [showPassword, setShowPassword] = useState(false);
   const [form, setForm] = useState({ 
     name: user.name, 
     handle: user.handle, 
-    role: user.role, 
+    role: user.role.toLowerCase(),
     status: user.status,
     password: user.password
   });
@@ -51,10 +50,10 @@ function EditModal({ user, onSave, onClose }) {
   const set = (k, v) => setForm((f) => ({ ...f, [k]: v }));
 
   const avatarClass = {
-    Admin: "users-avatar-admin",
-    Employee: "users-avatar-employee",
-    Manager: "users-avatar-manager",
-    Cashier: "users-avatar-cashier",
+      admin: "users-avatar-admin",
+      employee: "users-avatar-employee",
+      manager: "users-avatar-manager",
+      cashier: "users-avatar-cashier",
   };
 
   return (
@@ -183,7 +182,8 @@ function DeleteModal({ user, onConfirm, onClose }) {
 // ADD USER MODAL
 // =============================================
 function AddUserModal({ onSave, onClose }) {
-  const [form, setForm] = useState({ name: "", handle: "", role: "Employee", status: "Active" });
+  const [form, setForm] = useState({ name: "", handle: "", role: "Employee", status: "Active", password: "" });
+  const [showPassword, setShowPassword] = useState(false);
   const set = (k, v) => setForm((f) => ({ ...f, [k]: v }));
 
   return (
@@ -205,7 +205,7 @@ function AddUserModal({ onSave, onClose }) {
             <div>
               <label className="users-label">Role</label>
               <select className="users-select" value={form.role} onChange={(e) => set("role", e.target.value)}>
-                {["Admin", "Manager", "Employee", "Cashier"].map((r) => <option key={r}>{r}</option>)}
+                {["admin", "manager", "employee", "cashier"].map((r) => <option key={r} value={r}>{r.charAt(0).toUpperCase() + r.slice(1)}</option>)}
               </select>
             </div>
             <div>
@@ -216,13 +216,24 @@ function AddUserModal({ onSave, onClose }) {
               </select>
             </div>
           </div>
+          <div>
+            <label className="users-label">Password</label>
+            <input
+              className="users-input"
+              type="password"
+              placeholder="Enter password"
+              value={form.password}
+              onChange={(e) => set("password", e.target.value)}
+              autoComplete="new-password"
+            />
+          </div>
         </div>
         <div className="users-modal-actions">
           <button className="users-cancel-btn" onClick={onClose}>Cancel</button>
-          <button 
-            className="users-save-btn" 
-            onClick={() => form.name && form.handle && onSave(form)} 
-            disabled={!form.name || !form.handle}
+          <button
+            className="users-save-btn"
+            onClick={() => form.name && form.handle && form.password && onSave(form)}
+            disabled={!form.name || !form.handle || !form.password}
           >
             Add User
           </button>
@@ -265,7 +276,7 @@ function UsersPage() {
 
   const total = usersList.length;
   const active = usersList.filter((u) => u.status === "Active").length;
-  const admins = usersList.filter((u) => u.role === "Admin").length;
+  const admins = usersList.filter((u) => u.role === "admin").length;
 
   const handleSaveEdit = async (form) => {
     try {

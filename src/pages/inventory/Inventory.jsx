@@ -1,6 +1,8 @@
 import { useState } from "react";
 import Toast from "../../components/Toast";
 import { inventoryService } from "../../services/inventoryService";
+import { approvalsService } from "../../services/approvalsService";
+import { useAuth } from "../../context/AuthContext";
 import "./Inventory.css";
 
 const StatusBadge = ({ status }) => {
@@ -175,6 +177,7 @@ export default function InventoryDashboard() {
   const [showRequestModal, setShowRequestModal] = useState(false);
   const [hoverRequest, setHoverRequest] = useState(false);
   const [toast, setToast] = useState(null);
+  const { user } = useAuth();
 
   const showToast = (message, type = "success") => setToast({ message, type });
 
@@ -185,13 +188,22 @@ export default function InventoryDashboard() {
   const displayed = showAll ? products : products.slice(0, 8);
 
   const handleSave = (updated) => {
-    setProducts(prev => prev.map(p => p.id === updated.id ? updated : p));
-    showToast("Stock updated successfully");
-  };
+      inventoryService.updateProduct(updated);
+      setProducts(prev => prev.map(p => p.id === updated.id ? updated : p));
+      showToast("Stock updated successfully");
+    };
 
-  const handlePurchaseRequest = () => {
-    showToast("Purchase request sent to manager");
-  };
+  const handlePurchaseRequest = async (form) => {
+      await approvalsService.addPurchaseRequest({
+        productName: form.productName,
+        sku: form.sku,
+        quantity: form.quantity,
+        currentStock: form.currentStock,
+        category: form.category,
+        requestedBy: user ? `${user.name} (${user.role})` : "Employee",
+      });
+      showToast("Purchase request sent to manager");
+    };
 
   return (
     <div className="inventory-container">

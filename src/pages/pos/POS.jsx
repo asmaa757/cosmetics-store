@@ -1,7 +1,10 @@
 import { useState } from "react";
 import Toast from "../../components/Toast";
 import { posService } from "../../services/posService";
+import { approvalsService } from "../../services/approvalsService";
+import { useAuth } from "../../context/AuthContext";
 import "./POS.css";
+
 
 function DiscountRequestModal({ onClose, onSubmit, total }) {
   const [form, setForm] = useState({
@@ -91,6 +94,7 @@ export default function POSSystem() {
   const [showDiscount, setShowDiscount] = useState(false);
 
   const showToastMsg = (message, type = "success") => setToast({ message, type });
+  const { user } = useAuth();
 
   const products = posService.getProducts();
 
@@ -146,10 +150,26 @@ export default function POSSystem() {
     setCart([]);
   };
 
-  const handleDiscountSubmit = (form) => {
-    showToastMsg("Discount request sent to manager");
-    setShowDiscount(false);
-  };
+  const handleDiscountSubmit = async (form) => {
+      const discountedTotal =
+        form.discountType === "percentage"
+          ? total * (1 - parseFloat(form.discountValue) / 100)
+          : total - parseFloat(form.discountValue);
+
+      await approvalsService.addDiscountRequest({
+        productName: cart.map(i => i.name).join(", ") || "Cart Items",
+        originalPrice: `${total.toFixed(2)} EGP`,
+        discountPercent: form.discountType === "percentage"
+          ? form.discountValue
+          : ((parseFloat(form.discountValue) / total) * 100).toFixed(1),
+        finalPrice: `${Math.max(0, discountedTotal).toFixed(2)} EGP`,
+        reason: form.reason + (form.notes ? `/ ${form.notes}` : ""),
+        requestedBy: user ? `${user.name} (${user.role})` : "Cashier",
+      });
+
+      showToastMsg("Discount request sent to manager");
+      setShowDiscount(false);
+    };
 
   return (
     <>
