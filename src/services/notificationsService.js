@@ -1,4 +1,6 @@
-let MOCK_NOTIFICATIONS = [
+const STORAGE_KEY = "notifications";
+
+const INITIAL_NOTIFICATIONS = [
   {
     id: 1,
     type: "order",
@@ -61,16 +63,53 @@ let MOCK_NOTIFICATIONS = [
   },
 ];
 
+// Helper: load from localStorage, seed with initial data if empty
+const loadNotifications = () => {
+  try {
+    const stored = localStorage.getItem(STORAGE_KEY);
+    if (stored) {
+      return JSON.parse(stored);
+    }
+    // First time: seed localStorage with initial data
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(INITIAL_NOTIFICATIONS));
+    return [...INITIAL_NOTIFICATIONS];
+  } catch {
+    return [...INITIAL_NOTIFICATIONS];
+  }
+};
+
+// Helper: save to localStorage
+const saveNotifications = (notifications) => {
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(notifications));
+};
+
 export const notificationsService = {
   getAllNotifications: async () => {
-    return [...MOCK_NOTIFICATIONS];
+    return loadNotifications();
   },
 
   removeNotification: async (id) => {
-    const index = MOCK_NOTIFICATIONS.findIndex(n => n.id === id);
-    if (index !== -1) {
-      MOCK_NOTIFICATIONS.splice(index, 1);
-    }
+    const notifications = loadNotifications();
+    const updated = notifications.filter((n) => n.id !== id);
+    saveNotifications(updated);
     return { success: true };
+  },
+
+  // Optional: add a new notification
+  addNotification: async (notification) => {
+    const notifications = loadNotifications();
+    const newNotification = {
+      ...notification,
+      id: Date.now(), // unique id
+    };
+    const updated = [newNotification, ...notifications];
+    saveNotifications(updated);
+    return newNotification;
+  },
+
+  // Optional: reset to initial data (useful for testing)
+  resetNotifications: async () => {
+    saveNotifications(INITIAL_NOTIFICATIONS);
+    return [...INITIAL_NOTIFICATIONS];
   },
 };

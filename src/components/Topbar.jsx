@@ -183,7 +183,7 @@ style.textContent = `
   .user-dropdown-header {
     padding: 14px 16px;
     border-bottom: 1px solid #f3f4f6;
-    background: #fff9fb;
+
   }
 
   .user-dropdown-name {
@@ -196,7 +196,9 @@ style.textContent = `
     font-size: 12px;
     color: #9a8fa0;
     margin-top: 2px;
-  }.user-dropdown-item {
+  }
+    
+  .user-dropdown-item {
     display: flex;
     align-items: center;
     gap: 10px;
@@ -217,13 +219,13 @@ style.textContent = `
   }
 
   .user-dropdown-item.logout {
-    color: #ef4444;
+    color: #FF2056;
     border-top: 1px solid #f3f4f6;
   }
 
   .user-dropdown-item.logout:hover {
     background: #fff1f1;
-    color: #dc2626;
+    color: #FF2056;
   }
 `;
 document.head.appendChild(style);
